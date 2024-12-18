@@ -2,6 +2,8 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
+import taskRoutes from "./routes/taskRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
 //environment variables
 dotenv.config();
@@ -14,6 +16,8 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+app.use("/tasks", taskRoutes);
+app.use("/users", userRoutes);
 app.get("/", (req, res) => {
   res.send("Focus Flow Backend is running!");
 });
