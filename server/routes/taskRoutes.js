@@ -6,11 +6,12 @@ import {
   updateTask,
   deleteTask,
 } from "../controllers/taskController.js"; // Import the controllers
+import { authenticate } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
 // Create a new task
-router.post("/", createTask);
+router.post("/", authenticate, createTask);
 
 // Get all tasks
 router.get("/", getTasks);

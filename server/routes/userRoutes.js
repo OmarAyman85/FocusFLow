@@ -5,6 +5,7 @@ import {
   getUserProfile,
   updateUser,
 } from "../controllers/userController.js"; // Import the controllers
+import { authenticate } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -15,7 +16,7 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 
 // Get user details by ID (with authentication middleware)
-router.get("/:userId", getUserProfile);
+router.get("/:userId", authenticate, getUserProfile);
 
 // Update user information (with authentication middleware)
 router.put("/:userId", updateUser);
