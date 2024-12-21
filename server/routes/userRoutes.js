@@ -19,6 +19,6 @@ router.post("/login", loginUser);
 router.get("/:userId", authenticate, getUserProfile);
 
 // Update user information (with authentication middleware)
-router.put("/:userId", updateUser);
+router.put("/:userId",authenticate, updateUser);
 
 export default router;
