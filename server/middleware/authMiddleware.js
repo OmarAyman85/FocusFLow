@@ -19,7 +19,8 @@ export const authenticate = async (req, res, next) => {
     req.user = decoded;
 
     // Optional: Fetch the user from the database if needed
-    const user = await User.findById(decoded.id);
+    const user = await User.findById(decoded.userId);
+
     if (!user) {
       return res.status(404).json({ message: "User not found." });
     }

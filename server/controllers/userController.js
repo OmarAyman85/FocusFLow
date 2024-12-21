@@ -29,7 +29,6 @@ export const registerUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-
     // Create a new user
     const user = new User({
       firstName,
@@ -136,7 +135,6 @@ export const getUserProfile = async (req, res) => {
   try {
     const { userId } = req.params;
 
-    // Get the user data
     const user = await User.findById(userId).populate("tasks");
     if (!user) {
       return res.status(404).json({ message: "User not found" });
