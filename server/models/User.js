@@ -35,16 +35,16 @@ const userSchema = new mongoose.Schema(
     password: {
       type: String,
       require: true,
-      min: 8,
+      min: 5,
     },
     profilePicture: {
       type: String,
       default: "",
     },
-    tasks: {
+    tasks: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "Task",
-    },
+    }],
     //A flag indicating the admin for the multiple people tasks
     isAdmin: {
       type: Boolean,
@@ -77,7 +77,7 @@ userSchema.pre("save", async function (next) {
 
   // Hash the password with a salt rounds value of 10
   const salt = await bcrypt.genSalt(10);
-  this.password = bcrypt.hash(this.password, salt);
+  this.password = await bcrypt.hash(this.password, salt);
   next();
 });
 

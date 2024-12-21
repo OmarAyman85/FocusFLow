@@ -1,13 +1,15 @@
-import jwt from 'jsonwebtoken';
-import { User } from '../models/userModel.js';
+import jwt from "jsonwebtoken";
+import User from "../models/User.js";
 
 export const authenticate = async (req, res, next) => {
   try {
     // Check for the Authorization header
-    const token = req.headers.authorization?.split(' ')[1]; // Bearer <token>
+    const token = req.headers.authorization?.split(" ")[1]; // Bearer <token>
 
     if (!token) {
-      return res.status(401).json({ message: 'Access denied. No token provided.' });
+      return res
+        .status(401)
+        .json({ message: "Access denied. No token provided." });
     }
 
     // Verify the token
@@ -19,11 +21,11 @@ export const authenticate = async (req, res, next) => {
     // Optional: Fetch the user from the database if needed
     const user = await User.findById(decoded.id);
     if (!user) {
-      return res.status(404).json({ message: 'User not found.' });
+      return res.status(404).json({ message: "User not found." });
     }
 
     next(); // Proceed to the next middleware or route handler
   } catch (error) {
-    res.status(401).json({ message: 'Invalid token.', error: error.message });
+    res.status(401).json({ message: "Invalid token.", error: error.message });
   }
 };

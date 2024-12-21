@@ -25,13 +25,18 @@ export const registerUser = async (req, res) => {
       return res.status(400).json({ message: "User already exists" });
     }
 
+    // Hash the password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+
     // Create a new user
     const user = new User({
       firstName,
       lastName,
       userName,
       email,
-      password,
+      password: hashedPassword,
       profilePicture,
       bio,
       socialLinks,
@@ -39,10 +44,6 @@ export const registerUser = async (req, res) => {
       isAdmin: false,
       tasks: [],
     });
-
-    // Hash the password
-    const salt = await bcrypt.genSalt(10);
-    user.password = bcrypt.hash(user.password, salt);
 
     // Save the user
     await user.save();
