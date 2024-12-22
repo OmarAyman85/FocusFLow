@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5001;
 
 const app = express();
 
-//Middleware
+
 app.use(cors());
 app.use(express.json());
 
@@ -23,6 +23,7 @@ app.get("/", (req, res) => {
   res.send("Focus Flow Backend is running!");
 });
 
+//error middleware
 // Catch-all for undefined routes
 app.use((req, res, next) => {
   const error = new Error("Not Found");
@@ -31,6 +32,7 @@ app.use((req, res, next) => {
 });
 
 app.use(errorMiddleware);
+
 //Initialize the database and the server
 mongoose
   .connect(process.env.MONGO_URL, {
