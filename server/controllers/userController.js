@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 // Register a new user
-export const registerUser = async (req, res) => {
+export const registerUser = async (req, res, next) => {
   try {
     const {
       firstName,
@@ -22,7 +22,10 @@ export const registerUser = async (req, res) => {
     });
 
     if (existingUser) {
-      return res.status(400).json({ message: "User already exists" });
+      //return res.status(400).json({ message: "User already exists" });
+      const error = new Error("User already exists");
+      error.statusCode = 400;
+      throw error;
     }
 
     // Hash the password
@@ -49,13 +52,13 @@ export const registerUser = async (req, res) => {
 
     res.status(201).json({ message: "User registered successfully", user });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error });
+    next(error);
   }
 };
 
 //----------------------------------------------------------------------------------------------
 // Login user with either email or username
-export const loginUser = async (req, res) => {
+export const loginUser = async (req, res, next) => {
   try {
     const { emailOrUsername, password } = req.body;
 
@@ -65,15 +68,17 @@ export const loginUser = async (req, res) => {
     });
 
     if (!user || !user.isActive) {
-      return res
-        .status(400)
-        .json({ message: "Invalid credentials or user is inactive" });
+      const error = new Error("Invalid credentials");
+      error.statusCode = 401;
+      throw error;
     }
 
     // Compare the entered password with the hashed password stored in the DB
     const isMatch = bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      const error = new Error("Invalid credentials");
+      error.statusCode = 401;
+      throw error;
     }
 
     // Generate JWT token
@@ -83,12 +88,12 @@ export const loginUser = async (req, res) => {
 
     res.status(200).json({ message: "Login successful", token });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error });
+    next(error);
   }
 };
 //----------------------------------------------------------------------------------------------
 // Update user profile
-export const updateUser = async (req, res) => {
+export const updateUser = async (req, res, next) => {
   try {
     const { userId } = req.params;
     const {
@@ -120,29 +125,33 @@ export const updateUser = async (req, res) => {
       { new: true }
     );
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      const error = new Error("User not found");
+      error.statusCode = 404;
+      throw error;
     }
 
     res.status(200).json({ message: "User updated successfully", user });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error });
+    next(error);
   }
 };
 
 //----------------------------------------------------------------------------------------------
 // Get user profile
-export const getUserProfile = async (req, res) => {
+export const getUserProfile = async (req, res, next) => {
   try {
     const { userId } = req.params;
 
     const user = await User.findById(userId).populate("tasks");
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      const error = new Error("User not found");
+      error.statusCode = 404;
+      throw error;
     }
 
     res.status(200).json({ user });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error });
+    next(error);
   }
 };
 //----------------------------------------------------------------------------------------------

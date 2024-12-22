@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import taskRoutes from "./routes/taskRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import errorMiddleware from "./middleware/errorMiddleware.js";
 
 //environment variables
 dotenv.config();
@@ -22,6 +23,14 @@ app.get("/", (req, res) => {
   res.send("Focus Flow Backend is running!");
 });
 
+// Catch-all for undefined routes
+app.use((req, res, next) => {
+  const error = new Error("Not Found");
+  error.statusCode = 404;
+  next(error); // Forward to error handler
+});
+
+app.use(errorMiddleware);
 //Initialize the database and the server
 mongoose
   .connect(process.env.MONGO_URL, {

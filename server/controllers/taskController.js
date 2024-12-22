@@ -1,7 +1,7 @@
 import Task from "../models/Task.js"; // Import the Task model
 
 // Create a new task
-export const createTask = async (req, res) => {
+export const createTask = async (req, res, next) => {
   try {
     const {
       userId,
@@ -39,12 +39,12 @@ export const createTask = async (req, res) => {
 
     res.status(201).json({ message: "Task created successfully", task });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error });
+    next(error);
   }
 };
 //---------------------------------------------------------------------------------------------------
 // Get all tasks of a user
-export const getTasks = async (req, res) => {
+export const getTasks = async (req, res, next) => {
   try {
     const { userId } = req.params;
 
@@ -52,32 +52,32 @@ export const getTasks = async (req, res) => {
 
     res.status(200).json({ tasks });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error });
+    next(error);
   }
 };
 
 //---------------------------------------------------------------------------------------------------
 // Get task by ID
-export const getTaskById = async (req, res) => {
+export const getTaskById = async (req, res, next) => {
   try {
-    console.log("welcome inside the get function");
     const { taskId } = req.params;
-    console.log("Task ID received:", taskId);
 
     const task = await Task.findById(taskId);
     if (!task) {
-      return res.status(404).json({ message: "Task not found" });
+      const error = new Error("Task not found");
+      error.statusCode = 404;
+      throw error;
     }
 
     res.status(200).json({ task });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error });
+    next(error);
   }
 };
 
 //---------------------------------------------------------------------------------------------------
 // Update task
-export const updateTask = async (req, res) => {
+export const updateTask = async (req, res, next) => {
   try {
     const { taskId } = req.params;
     const {
@@ -116,28 +116,32 @@ export const updateTask = async (req, res) => {
     );
 
     if (!task) {
-      return res.status(404).json({ message: "Task not found" });
+      const error = new Error("Task not found");
+      error.statusCode = 404;
+      throw error;
     }
 
     res.status(200).json({ message: "Task updated successfully", task });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error });
+    next(error);
   }
 };
 
 //---------------------------------------------------------------------------------------------------
 // Delete task
-export const deleteTask = async (req, res) => {
+export const deleteTask = async (req, res, next) => {
   try {
     const { taskId } = req.params;
 
     const task = await Task.findByIdAndDelete(taskId);
     if (!task) {
-      return res.status(404).json({ message: "Task not found" });
+      const error = new Error("Task not found");
+      error.statusCode = 404;
+      throw error;
     }
 
     res.status(200).json({ message: "Task deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error });
+    next(error);
   }
 };
