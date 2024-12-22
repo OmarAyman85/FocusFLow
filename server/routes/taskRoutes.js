@@ -14,7 +14,7 @@ const router = express.Router();
 router.post("/", authenticate, createTask);
 
 // Get all tasks
-router.get("/", getTasks);
+router.get("/user/:userId", getTasks);
 
 // Get task by ID
 router.get("/:taskId", getTaskById);

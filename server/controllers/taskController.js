@@ -23,8 +23,8 @@ export const createTask = async (req, res) => {
       userId,
       title,
       description,
-      status: status || "Pending", // Default to 'Pending' if not provided
-      priority,
+      status: status || "pending", // Default to 'Pending' if not provided
+      priority: priority || "low",
       dueDate,
       tags,
       reminder,
@@ -60,7 +60,9 @@ export const getTasks = async (req, res) => {
 // Get task by ID
 export const getTaskById = async (req, res) => {
   try {
+    console.log("welcome inside the get function");
     const { taskId } = req.params;
+    console.log("Task ID received:", taskId);
 
     const task = await Task.findById(taskId);
     if (!task) {
