@@ -7,6 +7,7 @@ import {
   deleteTask,
 } from "../controllers/taskController.js"; // Import the controllers
 import { authenticate } from "../middleware/authMiddleware.js";
+import { adminMiddleware } from "../middleware/adminMiddleware.js";
 
 const router = express.Router();
 
@@ -23,6 +24,6 @@ router.get("/:taskId", getTaskById);
 router.put("/:taskId", updateTask);
 
 // Delete task by ID
-router.delete("/:taskId", deleteTask);
+router.delete("/:taskId", adminMiddleware, deleteTask);
 
 export default router;

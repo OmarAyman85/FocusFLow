@@ -1,4 +1,5 @@
 import Task from "../models/Task.js"; // Import the Task model
+import User from "../models/User.js"; // Import the User model
 
 // Create a new task
 export const createTask = async (req, res, next) => {
@@ -36,6 +37,18 @@ export const createTask = async (req, res, next) => {
     });
 
     await task.save();
+
+    // Find the user and add the task to the user's task list
+    const user = await User.findById(userId);
+
+    if (!user) {
+      const error = new Error("User not found");
+      error.statusCode = 404;
+      throw error;
+    }
+    
+    user.tasks.push(task._id); // Add the task ID to the user's tasks array
+    await user.save();
 
     res.status(201).json({ message: "Task created successfully", task });
   } catch (error) {

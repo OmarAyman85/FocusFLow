@@ -4,14 +4,13 @@ import dotenv from "dotenv";
 import cors from "cors";
 import taskRoutes from "./routes/taskRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
-import errorMiddleware from "./middleware/errorMiddleware.js";
+import { errorMiddleware } from "./middleware/errorMiddleware.js";
 
 //environment variables
 dotenv.config();
 const PORT = process.env.PORT || 5001;
 
 const app = express();
-
 
 app.use(cors());
 app.use(express.json());
