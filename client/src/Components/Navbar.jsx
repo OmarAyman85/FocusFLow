@@ -5,7 +5,7 @@ const NavBar = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-dark navbar-dark">
       <div className="container-fluid">
-        <NavLink className="navbar-brand" to="/">
+        <NavLink className="navbar-brand" to="/" style={{ color: "green" }}>
           Navbar
         </NavLink>
         <button
@@ -23,8 +23,9 @@ const NavBar = () => {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <NavLink
-                className="nav-link"
-                //className={({ isActive }) => `nav-link ${isActive && "active"}`}
+                className={({ isActive }) =>
+                  `nav-link ${isActive ? "text-success" : ""}`
+                }
                 aria-current="page"
                 to="/"
               >
@@ -32,24 +33,44 @@ const NavBar = () => {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/Task/:id">
+              <NavLink
+                className={({ isActive }) =>
+                  `nav-link ${isActive ? "text-success" : ""}`
+                }
+                to="/Task/:id"
+              >
                 Task Details
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/Login">
+              <NavLink
+                className={({ isActive }) =>
+                  `nav-link ${isActive ? "text-success" : ""}`
+                }
+                to="/Login"
+              >
                 Login
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/Register">
+              <NavLink
+                className={({ isActive }) =>
+                  `nav-link ${isActive ? "text-success" : ""}`
+                }
+                to="/Register"
+              >
                 Register
               </NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link disabled" aria-disabled="true">
+              <NavLink
+                className={({ isActive }) =>
+                  `nav-link disabled ${isActive ? "text-success" : ""}`
+                }
+                aria-disabled="true"
+              >
                 User
-              </a>
+              </NavLink>
             </li>
           </ul>
           <form className="d-flex" role="search">

@@ -1,10 +1,8 @@
-import NavBar from "./Components/Navbar";
 import {
   createRoutesFromElements,
   createBrowserRouter,
   Route,
   RouterProvider,
-  Outlet,
 } from "react-router-dom";
 import React from "react";
 import Login from "./Screens/Login";
