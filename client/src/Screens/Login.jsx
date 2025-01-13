@@ -53,6 +53,7 @@ const Login = () => {
       <div className="row justify-content-md-center">
         <div className="col-8">
           <form onSubmit={handleSubmit} noValidate>
+            {/*---------------------------------------------------------------------------------------------*/}
             <div className="mb-3 mt-5">
               <label htmlFor="email" className="form-label">
                 Email address
@@ -69,6 +70,7 @@ const Login = () => {
                 <div className="text-danger">{errors.email[0]}</div>
               )}
             </div>
+            {/*---------------------------------------------------------------------------------------------*/}
             <div className="mb-3">
               <label htmlFor="password" className="form-label">
                 Password
@@ -85,6 +87,7 @@ const Login = () => {
                 <div className="text-danger">{errors.password}</div>
               )}
             </div>
+            {/*---------------------------------------------------------------------------------------------*/}
             <div className="mb-3 form-check">
               <input
                 type="checkbox"
@@ -95,6 +98,7 @@ const Login = () => {
                 Remember me
               </label>
             </div>
+            {/*---------------------------------------------------------------------------------------------*/}
             <button type="submit" className="btn btn-success">
               Submit
             </button>
