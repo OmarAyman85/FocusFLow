@@ -5,7 +5,6 @@ import { NavLink } from "react-router-dom";
 const DoneDashboard = () => {
   return (
     <>
-      <h1>This is the Dashboard page.</h1>
       <div className="card text-center">
         <div className="card-header">
           <ul className="nav nav-tabs card-header-tabs">

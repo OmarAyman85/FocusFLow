@@ -1,11 +1,11 @@
 import React from "react";
 import TaskCard from "../../Components/TaskCard";
 import { NavLink } from "react-router-dom";
+import AddTask from "../../Components/AddTask";
 
 const ActiveDashboard = () => {
   return (
     <>
-      <h1>This is the Dashboard page.</h1>
       <div className="card text-center">
         <div className="card-header">
           <ul className="nav nav-tabs card-header-tabs">
@@ -41,6 +41,7 @@ const ActiveDashboard = () => {
         {/*------------------------------------------------------------------------------*/}
         <div class="container text-center">
           <div class="row">
+            <AddTask />
             <TaskCard />
             <TaskCard />
             <TaskCard />

@@ -13,6 +13,8 @@ import DoneDashboard from "./Screens/Dashboard/DoneDashboard";
 import TaskDetails from "./Screens/TaskDetails";
 import RootLayout from "./Layouts/RootLayout";
 import HomePage from "./Screens/HomePage";
+import DashboardLayout from "./Layouts/DashboardLayout";
+import ErrorScreen from "./Screens/Error";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,10 +22,15 @@ const router = createBrowserRouter(
       <Route index element={<HomePage />} />
       <Route path="Login" element={<Login />} />
       <Route path="Register" element={<Register />} />
-      <Route path="Dashboard/Active" element={<ActiveDashboard />} />
-      <Route path="Dashboard/Added" element={<AddedDashboard />} />
-      <Route path="Dashboard/Done" element={<DoneDashboard />} />
+      <Route path="Dashboard/" element={<DashboardLayout />}>
+        <Route index element={<ErrorScreen />} />
+        <Route path="Active" element={<AddedDashboard />} />
+        <Route path="Added" element={<AddedDashboard />} />
+        <Route path="Done" element={<DoneDashboard />} />
+        <Route path="*" element={<ErrorScreen />} />
+      </Route>
       <Route path="Task/:id" element={<TaskDetails />} />
+      <Route path="*" element={<ErrorScreen />} />
     </Route>
   )
 );
