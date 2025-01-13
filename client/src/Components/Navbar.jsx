@@ -27,7 +27,7 @@ const NavBar = () => {
                   `nav-link ${isActive ? "text-success" : ""}`
                 }
                 aria-current="page"
-                to="/"
+                to="/Dashboard/Active"
               >
                 Dashboard
               </NavLink>
