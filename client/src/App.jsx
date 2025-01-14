@@ -7,8 +7,8 @@ import {
 import React from "react";
 import Login from "./Screens/Login";
 import Register from "./Screens/Register";
-import ActiveDashboard from "./Screens/Dashboard/ActiveDashboard";
 import AddedDashboard from "./Screens/Dashboard/AddedDashboard";
+import ActiveDashboard from "./Screens/Dashboard/ActiveDashboard";
 import DoneDashboard from "./Screens/Dashboard/DoneDashboard";
 import TaskDetails from "./Screens/TaskDetails";
 import RootLayout from "./Layouts/RootLayout";
@@ -24,7 +24,7 @@ const router = createBrowserRouter(
       <Route path="Register" element={<Register />} />
       <Route path="Dashboard/" element={<DashboardLayout />}>
         <Route index element={<ErrorScreen />} />
-        <Route path="Active" element={<AddedDashboard />} />
+        <Route path="Active" element={<ActiveDashboard />} />
         <Route path="Added" element={<AddedDashboard />} />
         <Route path="Done" element={<DoneDashboard />} />
         <Route path="*" element={<ErrorScreen />} />

@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import TaskCard from "../../Components/TaskCard";
 import { NavLink } from "react-router-dom";
-import AddTask from "../../Components/AddTask";
 
 const ActiveDashboard = () => {
+  const [tasks] = useState([
+    { title: "Task 1", description: "Description 1", status: "Active" },
+    { title: "Task 1", description: "Description 1", status: "Active" },
+    { title: "Task 1", description: "Description 1", status: "Active" },
+    { title: "Task 1", description: "Description 1", status: "Active" },
+  ]);
+
   return (
     <>
       <div className="card text-center">
@@ -40,12 +46,17 @@ const ActiveDashboard = () => {
         </div>
         {/*------------------------------------------------------------------------------*/}
         <div class="container text-center">
-          <div class="row">
-            <AddTask />
-            <TaskCard />
-            <TaskCard />
-            <TaskCard />
-            <TaskCard />
+          {/* <div class="row">
+            {tasks.map((task, index) => (
+              <TaskCard key={index} task={task} /> // Passing each task as prop
+            ))}
+          </div> */}
+          <div className="row">
+            {tasks.length === 0 ? (
+              <p>No tasks available.</p>
+            ) : (
+              tasks.map((task, index) => <TaskCard key={index} task={task} />)
+            )}
           </div>
         </div>
         {/*------------------------------------------------------------------------------*/}

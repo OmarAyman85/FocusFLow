@@ -1,24 +1,33 @@
 import React, { useState } from "react";
 import Joi from "joi-browser";
 
-const AddTask = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const AddTask = ({ addNewTask }) => {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [status, setStatus] = useState("");
+  const [priority, setPriority] = useState("");
+  const [dueDate, setDueDate] = useState("");
   const [errors, setErrors] = useState({});
 
+  const statusEnum = ["pending", "in-progress", "completed"];
+  const priorityEnum = ["low", "medium", "high"];
+
   const schema = {
-    firstName: Joi.string().required().label("First Name"),
-    lastName: Joi.string().required().label("Last Name"),
-    email: Joi.string().required().email().label("Email"),
-    password: Joi.string().required().label("Password"),
+    title: Joi.string().required().max(50).label("Title"),
+    description: Joi.string().allow("").label("Description"),
+    status: Joi.string()
+      .valid(...statusEnum)
+      .label("Status"),
+    priority: Joi.string()
+      .valid(...priorityEnum)
+      .label("Priority"),
+    dueDate: Joi.date().optional().label("Due Date"),
   };
 
   const validate = () => {
     const errors = {};
     const result = Joi.validate(
-      { firstName, lastName, email, password },
+      { title, description, status, priority, dueDate },
       schema,
       {
         abortEarly: false,
@@ -43,24 +52,33 @@ const AddTask = () => {
       setErrors(errors);
       return;
     }
-
+    const taskData = { title, description, status, priority, dueDate };
+    addNewTask(taskData);
+    setTitle("");
+    setDescription("");
+    setStatus("");
+    setPriority("");
+    setDueDate("");
     console.log("Verified");
   };
 
   const handleChange = (e) => {
     const { name, value } = e.currentTarget;
     switch (name) {
-      case "firstName":
-        setFirstName(value);
+      case "title":
+        setTitle(value);
         break;
-      case "lastName":
-        setLastName(value);
+      case "description":
+        setDescription(value);
         break;
-      case "email":
-        setEmail(value);
+      case "status":
+        setStatus(value);
         break;
-      case "password":
-        setPassword(value);
+      case "priority":
+        setPriority(value);
+        break;
+      case "dueDate":
+        setDueDate(value);
         break;
       default:
         break;
@@ -75,80 +93,114 @@ const AddTask = () => {
             <form onSubmit={handleSubmit} noValidate>
               {/*---------------------------------------------------------------------------------------------*/}
               <div class="mb-3 mt-5">
-                <label htmlFor="firstName" class="form-label">
-                  First Name
+                <label htmlFor="title" class="form-label">
+                  Title:
                 </label>
                 <input
-                  name="firstName"
-                  value={firstName}
+                  name="title"
+                  value={title}
                   onChange={handleChange}
                   type="text"
                   className="form-control"
-                  id="firstName"
+                  id="title"
                 />
-                {errors.firstName && (
-                  <div className="text-danger">{errors.firstName}</div>
+                {errors.title && (
+                  <div className="text-danger">{errors.title}</div>
                 )}
               </div>
               {/*---------------------------------------------------------------------------------------------*/}
               <div class="mb-3">
-                <label htmlFor="lastName" class="form-label">
-                  Last Name
+                <label htmlFor="description" class="form-label">
+                  Description:
                 </label>
-                <input
-                  name="lastName"
-                  value={lastName}
+                <textarea
+                  name="description"
+                  value={description}
                   onChange={handleChange}
                   type="text"
                   className="form-control"
-                  id="lastName"
+                  id="description"
                 />
-                {errors.lastName && (
-                  <div className="text-danger">{errors.lastName}</div>
+                {errors.description && (
+                  <div className="text-danger">{errors.description}</div>
                 )}
-              </div>
-              {/*---------------------------------------------------------------------------------------------*/}
-              <div class="mb-3">
-                <label htmlFor="email" class="form-label">
-                  Email address
-                </label>
-                <input
-                  name="email"
-                  value={email}
-                  onChange={handleChange}
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  //aria-describedby="emailHelp"
-                />
-                {errors.email && (
-                  <div className="text-danger">{errors.email[0]}</div>
-                )}
-                {/* <div id="emailHelp" class="form-text">
-                   We'll never share your email with anyone else.
-                 </div> */}
               </div>
               {/*---------------------------------------------------------------------------------------------*/}
               <div className="mb-3">
-                <label htmlFor="password" class="form-label">
-                  Password
+                <div className="mr-3">
+                  <label htmlFor="status" className="form-label mr-3">
+                    Priority:
+                  </label>
+                </div>
+                {priorityEnum.map((p) => (
+                  <div className="form-check form-check-inline ml-3" key={p}>
+                    <input
+                      type="radio"
+                      id={p}
+                      name="priority"
+                      value={p}
+                      checked={priority === p}
+                      onChange={handleChange}
+                      className="form-check-input"
+                    />
+                    <label htmlFor={p}>
+                      {p.charAt(0).toUpperCase() + p.slice(1)}
+                    </label>
+                  </div>
+                ))}
+                {errors.priority && (
+                  <div className="text-danger">{errors.priority[0]}</div>
+                )}
+              </div>
+              {/*---------------------------------------------------------------------------------------------*/}
+              <div className="mb-3">
+                <div className="mr-3">
+                  <label htmlFor="status" className="form-label mr-3">
+                    Status:
+                  </label>
+                </div>
+                {statusEnum.map((s) => (
+                  <div className="form-check form-check-inline ml-3" key={s}>
+                    <input
+                      type="radio"
+                      id={s}
+                      name="status"
+                      value={s}
+                      checked={status === s}
+                      onChange={handleChange}
+                      className="form-check-input"
+                    />
+                    <label htmlFor={s}>
+                      {s.charAt(0).toUpperCase() + s.slice(1)}
+                    </label>
+                  </div>
+                ))}
+                {errors.status && (
+                  <div className="text-danger">{errors.status[0]}</div>
+                )}
+              </div>
+              {/*---------------------------------------------------------------------------------------------*/}
+              <div class="mb-3">
+                <label htmlFor="dueDate" class="form-label">
+                  Due Date:
                 </label>
                 <input
-                  name="password"
-                  value={password}
+                  name="dueDate"
+                  value={dueDate}
                   onChange={handleChange}
-                  type="password"
+                  type="datetime-local"
                   className="form-control"
-                  id="password"
+                  id="dueDate"
                 />
-                {errors.password && (
-                  <div className="text-danger">{errors.password}</div>
+                {errors.dueDate && (
+                  <div className="text-danger">{errors.dueDate}</div>
                 )}
               </div>
               {/*---------------------------------------------------------------------------------------------*/}
               <button type="submit" class="btn btn-success">
                 Submit
               </button>
+              {/*---------------------------------------------------------------------------------------------*/}
             </form>
             <div className="mb-5"></div>
           </div>
