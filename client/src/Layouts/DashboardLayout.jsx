@@ -35,7 +35,7 @@ function DashboardLayout() {
         case "in-progress":
           activeTasksTemp.push(task);
           break;
-        case "Completed":
+        case "completed":
           doneTasksTemp.push(task);
           break;
         default:
@@ -97,21 +97,6 @@ function DashboardLayout() {
         />
       </Routes>
     </>
-    // <>
-    //   <h1 className="text-center">Welcome to your dashboard</h1>
-    //   <div className="text-center">
-    //     <button className="btn btn-primary" onClick={toggleAddTask}>
-    //       {showAddTask ? "Hide" : "Add Task"}
-    //     </button>
-    //     <div className="text-start">
-    //       {showAddTask && <AddTask addNewTask={addNewTask} />}
-    //     </div>
-    //   </div>
-    //   <DashboardNavbar />
-    //   {activeTasks.length > 0 && <ActiveDashboard tasks={activeTasks} />}
-    //   {addedTasks.length > 0 && <AddedDashboard tasks={addedTasks} />}
-    //   {doneTasks.length > 0 && <DoneDashboard tasks={doneTasks} />}
-    // </>
   );
 }
 

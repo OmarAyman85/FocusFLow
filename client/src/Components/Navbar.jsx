@@ -6,7 +6,7 @@ const NavBar = () => {
     <nav className="navbar navbar-expand-lg bg-dark navbar-dark">
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/" style={{ color: "green" }}>
-          Navbar
+          FocusFlow
         </NavLink>
         <button
           className="navbar-toggler"
