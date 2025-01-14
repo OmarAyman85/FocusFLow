@@ -13,7 +13,7 @@ const TaskCard = ({ task }) => {
             {/* <p className="card-text">Priority: {task.priority}</p>
             <p className="card-text">Status: {task.status}</p>
             <p className="card-text">Due Date: {task.dueDate}</p> */}
-            <NavLink to="/Task/:id" className="btn btn-primary">
+            <NavLink to="/Task/:id" className="btn btn-primary" tasks={task}>
               View Details
             </NavLink>
           </div>
