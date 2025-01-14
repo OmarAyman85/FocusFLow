@@ -5,6 +5,7 @@ import ActiveDashboard from "../Screens/Dashboard/ActiveDashboard";
 import AddedDashboard from "./../Screens/Dashboard/AddedDashboard";
 import DoneDashboard from "./../Screens/Dashboard/DoneDashboard";
 import DashboardNavbar from "./../Components/DashboardNavbar";
+import axios from "axios";
 
 function DashboardLayout() {
   const [showAddTask, setShowAddTask] = useState(false);
@@ -20,6 +21,13 @@ function DashboardLayout() {
   const addNewTask = (taskData) => {
     setTasks([...tasks, taskData]);
   };
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/get")
+      .then((result) => setTasks(result.data))
+      .catch((err) => console.log("Catched error:", err));
+  }, []);
 
   const selectDestination = useCallback(() => {
     let addedTasksTemp = [];

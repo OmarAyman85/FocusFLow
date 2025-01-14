@@ -1,5 +1,4 @@
 import React from "react";
-import DashboardNavbar from "./../Components/DashboardNavbar";
 
 const TaskDetails = ({ tasks = [] }) => {
   return (

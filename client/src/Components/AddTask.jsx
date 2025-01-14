@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Joi from "joi-browser";
+import axios from "axios";
 
 const AddTask = ({ addNewTask }) => {
   const [title, setTitle] = useState("");
@@ -43,6 +44,20 @@ const AddTask = ({ addNewTask }) => {
     }
     return errors;
   };
+  const handleAdd = () => {
+    axios
+      .post("http://localhost:3001/add", {
+        title: title,
+        description: description,
+        status: status,
+        priority: priority,
+        dueDate: dueDate,
+      })
+      .then((result) => {
+        window.location.reload();
+      })
+      .catch((err) => console.log("Catched error:", err));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault(); // prevent page refresh
@@ -60,6 +75,7 @@ const AddTask = ({ addNewTask }) => {
     setPriority("");
     setDueDate("");
     console.log("Verified");
+    handleAdd();
   };
 
   const handleChange = (e) => {
