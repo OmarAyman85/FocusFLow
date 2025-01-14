@@ -2,14 +2,7 @@ import React, { useState } from "react";
 import TaskCard from "../../Components/TaskCard";
 import { NavLink } from "react-router-dom";
 
-const ActiveDashboard = () => {
-  const [tasks] = useState([
-    { title: "Task 1", description: "Description 1", status: "Active" },
-    { title: "Task 1", description: "Description 1", status: "Active" },
-    { title: "Task 1", description: "Description 1", status: "Active" },
-    { title: "Task 1", description: "Description 1", status: "Active" },
-  ]);
-
+const ActiveDashboard = ({ tasks = [] }) => {
   return (
     <>
       <div className="card text-center">
@@ -46,14 +39,11 @@ const ActiveDashboard = () => {
         </div>
         {/*------------------------------------------------------------------------------*/}
         <div class="container text-center">
-          {/* <div class="row">
-            {tasks.map((task, index) => (
-              <TaskCard key={index} task={task} /> // Passing each task as prop
-            ))}
-          </div> */}
           <div className="row">
             {tasks.length === 0 ? (
-              <p>No tasks available.</p>
+              <div className="mt-3">
+                <p>No tasks available.</p>
+              </div>
             ) : (
               tasks.map((task, index) => <TaskCard key={index} task={task} />)
             )}

@@ -1,7 +1,7 @@
 import AddTask from "../Components/AddTask";
-import TaskCard from "../Components/TaskCard";
 import { Outlet } from "react-router-dom";
 import React, { useState } from "react";
+import ActiveDashboard from "../Screens/Dashboard/ActiveDashboard";
 
 function DashboardLayout() {
   const [showAddTask, setShowAddTask] = useState(false);
@@ -25,13 +25,8 @@ function DashboardLayout() {
         <div className="text-start">
           {showAddTask && <AddTask addNewTask={addNewTask} />}
         </div>
-        <div className="row">
-          {tasks.map((task, index) => (
-            <TaskCard key={index} task={task} />
-          ))}
-        </div>
       </div>
-      <Outlet />
+      <ActiveDashboard tasks={tasks} />
     </>
   );
 }
