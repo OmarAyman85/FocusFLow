@@ -92,8 +92,8 @@ const AddTask = ({ addNewTask }) => {
           <div className="col-8">
             <form onSubmit={handleSubmit} noValidate>
               {/*---------------------------------------------------------------------------------------------*/}
-              <div class="mb-3 mt-5">
-                <label htmlFor="title" class="form-label">
+              <div className="mb-3 mt-5">
+                <label htmlFor="title" className="form-label">
                   Title:
                 </label>
                 <input
@@ -109,8 +109,8 @@ const AddTask = ({ addNewTask }) => {
                 )}
               </div>
               {/*---------------------------------------------------------------------------------------------*/}
-              <div class="mb-3">
-                <label htmlFor="description" class="form-label">
+              <div className="mb-3">
+                <label htmlFor="description" className="form-label">
                   Description:
                 </label>
                 <textarea
@@ -180,8 +180,8 @@ const AddTask = ({ addNewTask }) => {
                 )}
               </div>
               {/*---------------------------------------------------------------------------------------------*/}
-              <div class="mb-3">
-                <label htmlFor="dueDate" class="form-label">
+              <div className="mb-3">
+                <label htmlFor="dueDate" className="form-label">
                   Due Date:
                 </label>
                 <input
@@ -197,7 +197,7 @@ const AddTask = ({ addNewTask }) => {
                 )}
               </div>
               {/*---------------------------------------------------------------------------------------------*/}
-              <button type="submit" class="btn btn-success">
+              <button type="submit" className="btn btn-success">
                 Submit
               </button>
               {/*---------------------------------------------------------------------------------------------*/}

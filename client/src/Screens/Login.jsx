@@ -173,16 +173,16 @@ export default Login;
 //                 <div className="mb-3 form-check">
 //                   <input
 //                     type="checkbox"
-//                     class="form-check-input"
+//                     className="form-check-input"
 //                     id="exampleCheck1"
 //                   ></input>
-//                   <label class="form-check-label" for="exampleCheck1">
+//                   <label className="form-check-label" for="exampleCheck1">
 //                     Remeber me
 //                   </label>
 //                 </div>
 //                 <button
 //                   type="submit"
-//                   class="btn btn-success"
+//                   className="btn btn-success"
 //                   onClick={this.handleSubmit}
 //                 >
 //                   Submit

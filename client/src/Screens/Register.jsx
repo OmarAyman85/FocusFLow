@@ -75,7 +75,7 @@ const Register = () => {
             <form onSubmit={handleSubmit} noValidate>
               {/*---------------------------------------------------------------------------------------------*/}
               <div class="mb-3 mt-5">
-                <label htmlFor="firstName" class="form-label">
+                <label htmlFor="firstName" className="form-label">
                   First Name
                 </label>
                 <input
@@ -91,8 +91,8 @@ const Register = () => {
                 )}
               </div>
               {/*---------------------------------------------------------------------------------------------*/}
-              <div class="mb-3">
-                <label htmlFor="lastName" class="form-label">
+              <div className="mb-3">
+                <label htmlFor="lastName" className="form-label">
                   Last Name
                 </label>
                 <input
@@ -108,8 +108,8 @@ const Register = () => {
                 )}
               </div>
               {/*---------------------------------------------------------------------------------------------*/}
-              <div class="mb-3">
-                <label htmlFor="email" class="form-label">
+              <div className="mb-3">
+                <label htmlFor="email" className="form-label">
                   Email address
                 </label>
                 <input
@@ -124,13 +124,13 @@ const Register = () => {
                 {errors.email && (
                   <div className="text-danger">{errors.email[0]}</div>
                 )}
-                {/* <div id="emailHelp" class="form-text">
+                {/* <div id="emailHelp" className="form-text">
                   We'll never share your email with anyone else.
                 </div> */}
               </div>
               {/*---------------------------------------------------------------------------------------------*/}
               <div className="mb-3">
-                <label htmlFor="password" class="form-label">
+                <label htmlFor="password" className="form-label">
                   Password
                 </label>
                 <input
@@ -146,7 +146,7 @@ const Register = () => {
                 )}
               </div>
               {/*---------------------------------------------------------------------------------------------*/}
-              <button type="submit" class="btn btn-success">
+              <button type="submit" className="btn btn-success">
                 Submit
               </button>
             </form>
